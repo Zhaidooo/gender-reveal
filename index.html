@@ -69,6 +69,8 @@
         .history-row-sub { font-size: 0.85rem; color: #555; background: #edf6f9; padding: 5px 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
         .tag-boy { color: var(--boy-dark); font-weight: bold; }
         .tag-girl { color: var(--girl-dark); font-weight: bold; }
+        .reset-btn { background: none; color: #bbb; border: none; font-size: 0.8rem; cursor: pointer; margin-top: auto; padding-top: 20px; text-decoration: underline; align-self: center; }
+        .reset-btn:hover { color: #e63946; }
         @media (max-width: 800px) { .dashboard { grid-template-columns: 1fr; } .history-list { max-height: 300px; } }
     </style>
 </head>
@@ -121,41 +123,51 @@
             <ul class="history-list" id="history-list">
                 <li class="history-item" style="color:#aaa; text-align:center;">Connecting to cloud...</li>
             </ul>
+            <button class="reset-btn" onclick="resetPool()">Clear Entire Global Pool</button>
         </div>
     </div>
 
     <script>
-        // ⚠️ CHANGE 'familyName2026' TO YOUR OWN LAST NAME TO MAKE YOUR DATABASE UNIQUE!
-        const UNIQUE_KEY = "familyName2026"; 
+        // ⚠️ PASTE YOUR COPIED KVDB ID BETWEEN THE QUOTES BELOW:
+        const BUCKET_ID = "ZifzPqEp1pTcGnsTU636R"; 
+        const API_URL = `https://kvdb.io/${BUCKET_ID}/reveal_state`;
         
         let pool = { boy: 0, girl: 0 };
         let historyLog = [];
 
-        // Fetches data from the free cloud server
+        // Fetches data from the operating live cloud server
         async function fetchCloudData() {
             try {
-                const res = await fetch(`https://api.countapi.xyz/get/${UNIQUE_KEY}/state`);
+                const res = await fetch(API_URL);
                 if (res.ok) {
                     const data = await res.json();
-                    const payload = JSON.parse(decodeURIComponent(data.value));
-                    pool = payload.pool || { boy: 0, girl: 0 };
-                    historyLog = payload.historyLog || [];
+                    pool = data.pool || { boy: 0, girl: 0 };
+                    historyLog = data.historyLog || [];
+                } else if (res.status === 404) {
+                    // Empty database, initial launch setup
+                    pool = { boy: 0, girl: 0 };
+                    historyLog = [];
                 }
             } catch (e) {
-                console.log("Initializing database context configuration...");
+                console.log("Database connection delayed, retrying...");
             }
             updateDisplay(false);
         }
 
-        // Saves data to the free cloud server
+        // Saves data securely to the cloud
         async function saveCloudData() {
             document.getElementById('bboy').disabled = true;
             document.getElementById('bgirl').disabled = true;
             
-            const payloadString = encodeURIComponent(JSON.stringify({ pool, historyLog }));
-            
-            // This API configuration stores strings safely inside an online numeric wrapper
-            await fetch(`https://api.countapi.xyz/set/${UNIQUE_KEY}/state?value=${payloadString}`);
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ pool, historyLog }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+            } catch(e) {
+                alert("Network error, bet could not reach the cloud. Try again.");
+            }
             
             document.getElementById('bboy').disabled = false;
             document.getElementById('bgirl').disabled = false;
@@ -214,7 +226,7 @@
             historyLog.unshift({ name, amount, side });
             nameInput.value = "";
             
-            updateDisplay(true); // Triggers background save to cloud
+            updateDisplay(true); 
         }
 
         function renderHistory() {
@@ -249,9 +261,17 @@
             });
         }
 
-        // Run setup and start a live poll loop every 5 seconds to catch other people's bets!
+        async function resetPool() {
+            if (confirm("Are you sure you want to clear all data on EVERYONE's phone?")) {
+                pool = { boy: 0, girl: 0 };
+                historyLog = [];
+                updateDisplay(true);
+            }
+        }
+
+        // Connect immediately and listen for data modifications every 4 seconds
         fetchCloudData();
-        setInterval(fetchCloudData, 5000);
+        setInterval(fetchCloudData, 4000);
     </script>
 </body>
 </html>
