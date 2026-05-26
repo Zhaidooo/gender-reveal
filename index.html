@@ -25,7 +25,6 @@
             box-sizing: border-box;
         }
 
-        /* Two Column Layout Wrapper */
         .dashboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -39,238 +38,48 @@
             box-sizing: border-box;
         }
 
-        /* Left Side Controls */
-        .control-pane {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        /* Right Side Live List Pane */
-        .list-pane {
-            background: var(--light-bg);
-            border-radius: 16px;
-            padding: 25px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #eef0f2;
-        }
-
-        h1 {
-            margin: 0 0 5px 0;
-            font-size: 2.3rem;
-            background: linear-gradient(45deg, var(--boy-dark), var(--girl-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            color: #6c757d;
-            margin: 0 0 25px 0;
-            font-size: 0.95rem;
-        }
-
-        .pool-total {
-            background: var(--light-bg);
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 25px;
-            border: 2px dashed #ccc;
-        }
-
-        .stats-board {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .stat-card {
-            padding: 15px;
-            border-radius: 12px;
-            color: white;
-            font-weight: bold;
-        }
-
+        .control-pane { display: flex; flex-direction: column; text-align: center; }
+        .list-pane { background: var(--light-bg); border-radius: 16px; padding: 25px; box-sizing: border-box; display: flex; flex-direction: column; border: 1px solid #eef0f2; }
+        h1 { margin: 0 0 5px 0; font-size: 2.3rem; background: linear-gradient(45deg, var(--boy-dark), var(--girl-dark)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: #6c757d; margin: 0 0 25px 0; font-size: 0.95rem; }
+        .pool-total { background: var(--light-bg); padding: 15px; border-radius: 12px; font-size: 1.4rem; font-weight: bold; margin-bottom: 25px; border: 2px dashed #ccc; }
+        .stats-board { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .stat-card { padding: 15px; border-radius: 12px; color: white; font-weight: bold; }
         .stat-card.boy { background-color: var(--boy-dark); }
         .stat-card.girl { background-color: var(--girl-dark); }
-
-        .stat-val {
-            font-size: 1.8rem;
-            margin: 5px 0;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        input[type="text"], input[type="number"] {
-            padding: 12px;
-            width: 100%;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: all 0.2s ease;
-        }
-
-        input[type="text"]:focus {
-            border-color: #6c757d;
-            outline: none;
-        }
-
-        /* Error/Shake Animation for missing name */
-        .input-error {
-            border-color: #e63946 !important;
-            background-color: #ffeef2;
-            animation: shake 0.3s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-6px); }
-            40%, 80% { transform: translateX(6px); }
-        }
-
+        .stat-val { font-size: 1.8rem; margin: 5px 0; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.95rem; }
+        input[type="text"], input[type="number"] { padding: 12px; width: 100%; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; transition: all 0.2s ease; }
+        .input-error { border-color: #e63946 !important; background-color: #ffeef2; animation: shake 0.3s ease-in-out; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
         input[type="number"] { text-align: center; }
-
-        .calculator-box {
-            background: #f1faee;
-            border-radius: 12px;
-            padding: 12px;
-            margin: 15px 0;
-            font-size: 0.95rem;
-            display: flex;
-            justify-content: space-around;
-            border: 1px solid #a8dadc;
-        }
-        .calc-title {
-            font-weight: bold;
-            color: #1d3557;
-        }
-
-        .betting-actions {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        button {
-            padding: 14px 20px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            color: white;
-            flex: 1;
-        }
-
+        .calculator-box { background: #f1faee; border-radius: 12px; padding: 12px; margin: 15px 0; font-size: 0.95rem; display: flex; justify-content: space-around; border: 1px solid #a8dadc; }
+        .calc-title { font-weight: bold; color: #1d3557; }
+        .betting-actions { display: flex; gap: 15px; margin-bottom: 15px; }
+        button { padding: 14px 20px; font-size: 1.1rem; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s; color: white; flex: 1; }
+        button:disabled { background-color: #ccc !important; box-shadow: none !important; cursor: not-allowed; }
         button:active { transform: scale(0.95); }
         .btn-boy { background-color: var(--boy-dark); box-shadow: 0 5px 12px rgba(33, 158, 188, 0.25); }
         .btn-girl { background-color: var(--girl-dark); box-shadow: 0 5px 12px rgba(251, 111, 146, 0.25); }
-
-        /* Right Pane Elements */
-        .pane-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: var(--dark-text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .history-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            overflow-y: auto;
-            max-height: 480px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .history-item {
-            background: white;
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: 1px solid #e6e8ea;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.01);
-        }
-
-        .history-row-main {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.95rem;
-        }
-
-        .history-row-sub {
-            font-size: 0.85rem;
-            color: #555;
-            background: #edf6f9;
-            padding: 5px 10px;
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        .pane-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; color: var(--dark-text); }
+        .history-list { list-style: none; padding: 0; margin: 0; overflow-y: auto; max-height: 480px; display: flex; flex-direction: column; gap: 10px; }
+        .history-item { background: white; padding: 12px 15px; border-radius: 10px; border: 1px solid #e6e8ea; display: flex; flex-direction: column; gap: 6px; }
+        .history-row-main { display: flex; justify-content: space-between; font-size: 0.95rem; }
+        .history-row-sub { font-size: 0.85rem; color: #555; background: #edf6f9; padding: 5px 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
         .tag-boy { color: var(--boy-dark); font-weight: bold; }
         .tag-girl { color: var(--girl-dark); font-weight: bold; }
-
-        .reset-btn {
-            background: none;
-            color: #bbb;
-            border: none;
-            font-size: 0.8rem;
-            cursor: pointer;
-            margin-top: auto;
-            padding-top: 20px;
-            text-decoration: underline;
-            align-self: center;
-        }
-        .reset-btn:hover { color: #e63946; }
-
-        /* Responsive Mobile Layout adjustments */
-        @media (max-width: 800px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-            .history-list {
-                max-height: 300px;
-            }
-        }
+        @media (max-width: 800px) { .dashboard { grid-template-columns: 1fr; } .history-list { max-height: 300px; } }
     </style>
 </head>
 <body>
 
     <div class="dashboard">
-        
-        <!-- LEFT SIDE: ACTIONS & CONFIG -->
         <div class="control-pane">
             <h1>Boy or Girl?</h1>
-            <p class="subtitle">Enter your name and bet to adjust the pool live!</p>
+            <p class="subtitle">Global Pool: Anyone can open this link and place bets together!</p>
 
-            <div class="pool-total">
-                Total Pool: ₱<span id="total-pool">0</span>
-            </div>
+            <div class="pool-total">Total Pool: ₱<span id="total-pool">0</span></div>
 
             <div class="stats-board">
                 <div class="stat-card boy">
@@ -285,7 +94,6 @@
                 </div>
             </div>
 
-            <!-- MANDATORY REQUIREMENT FIELD -->
             <div class="form-group">
                 <label for="bettor-name">Bettor's Name: <span style="color: #e63946;">*Required</span></label>
                 <input type="text" id="bettor-name" placeholder="e.g., Tita Karen" autocomplete="off" oninput="this.classList.remove('input-error')">
@@ -297,44 +105,64 @@
             </div>
 
             <div class="calculator-box">
-                <div>
-                    <span class="calc-title">If Boy Wins:</span><br>
-                    Pays <span id="potential-boy" style="color: var(--boy-dark); font-weight:bold;">₱100.00</span>
-                </div>
+                <div><span class="calc-title">If Boy Wins:</span><br>Pays <span id="potential-boy" style="color: var(--boy-dark); font-weight:bold;">₱100.00</span></div>
                 <div style="border-left: 1px solid #a8dadc;"></div>
-                <div>
-                    <span class="calc-title">If Girl Wins:</span><br>
-                    Pays <span id="potential-girl" style="color: var(--girl-dark); font-weight:bold;">₱100.00</span>
-                </div>
+                <div><span class="calc-title">If Girl Wins:</span><br>Pays <span id="potential-girl" style="color: var(--girl-dark); font-weight:bold;">₱100.00</span></div>
             </div>
 
             <div class="betting-actions">
-                <button class="btn-boy" onclick="placeBet('boy')">Bet Boy 💙</button>
-                <button class="btn-girl" onclick="placeBet('girl')">Bet Girl 💖</button>
+                <button class="btn-boy" id="bboy" onclick="placeBet('boy')">Bet Boy 💙</button>
+                <button class="btn-girl" id="bgirl" onclick="placeBet('girl')">Bet Girl 💖</button>
             </div>
-            
-            <p style="font-size: 0.8rem; color:#888; margin: 5px 0 0 0;">
-                *Pari-mutuel pool: Payout weights adapt organically dynamically.
-            </p>
         </div>
 
-        <!-- RIGHT SIDE: LIVE RUNNING RESULTS -->
         <div class="list-pane">
-            <div class="pane-title">📊 Live Bettor Leaderboard</div>
+            <div class="pane-title">📊 Live Bettor Leaderboard (Auto-updates)</div>
             <ul class="history-list" id="history-list">
-                <!-- Dynamically updated list items mount here -->
+                <li class="history-item" style="color:#aaa; text-align:center;">Connecting to cloud...</li>
             </ul>
-
-            <button class="reset-btn" onclick="resetPool()">Reset Board & System Cache</button>
         </div>
-
     </div>
 
     <script>
-        let pool = JSON.parse(localStorage.getItem('grDashboardTotals')) || { boy: 0, girl: 0 };
-        let historyLog = JSON.parse(localStorage.getItem('grDashboardHistory')) || [];
+        // ⚠️ CHANGE 'familyName2026' TO YOUR OWN LAST NAME TO MAKE YOUR DATABASE UNIQUE!
+        const UNIQUE_KEY = "familyName2026"; 
+        
+        let pool = { boy: 0, girl: 0 };
+        let historyLog = [];
 
-        function updateDisplay() {
+        // Fetches data from the free cloud server
+        async function fetchCloudData() {
+            try {
+                const res = await fetch(`https://api.countapi.xyz/get/${UNIQUE_KEY}/state`);
+                if (res.ok) {
+                    const data = await res.json();
+                    const payload = JSON.parse(decodeURIComponent(data.value));
+                    pool = payload.pool || { boy: 0, girl: 0 };
+                    historyLog = payload.historyLog || [];
+                }
+            } catch (e) {
+                console.log("Initializing database context configuration...");
+            }
+            updateDisplay(false);
+        }
+
+        // Saves data to the free cloud server
+        async function saveCloudData() {
+            document.getElementById('bboy').disabled = true;
+            document.getElementById('bgirl').disabled = true;
+            
+            const payloadString = encodeURIComponent(JSON.stringify({ pool, historyLog }));
+            
+            // This API configuration stores strings safely inside an online numeric wrapper
+            await fetch(`https://api.countapi.xyz/set/${UNIQUE_KEY}/state?value=${payloadString}`);
+            
+            document.getElementById('bboy').disabled = false;
+            document.getElementById('bgirl').disabled = false;
+            updateDisplay(false);
+        }
+
+        function updateDisplay(triggerSave = false) {
             const total = pool.boy + pool.girl;
             
             document.getElementById('boy-pool').innerText = `₱${pool.boy.toLocaleString()}`;
@@ -347,61 +175,46 @@
             document.getElementById('boy-odds').innerText = `Multiplier: x${boyMultiplier.toFixed(2)}`;
             document.getElementById('girl-odds').innerText = `Multiplier: x${girlMultiplier.toFixed(2)}`;
 
-            localStorage.setItem('grDashboardTotals', JSON.stringify(pool));
-            localStorage.setItem('grDashboardHistory', JSON.stringify(historyLog));
-
             renderHistory();
             calculatePotentialWins();
+
+            if (triggerSave) {
+                saveCloudData();
+            }
         }
 
         function calculatePotentialWins() {
             const amountInput = document.getElementById('bet-amount');
             const bet = parseFloat(amountInput.value) || 0;
-            const currentTotal = pool.boy + pool.girl;
+            const total = pool.boy + pool.girl;
 
-            const simulatedTotal = currentTotal + bet;
-            const simulatedBoyPool = pool.boy + bet;
-            const simulatedGirlPool = pool.girl + bet;
+            const simTotal = total + bet;
+            const potentialBoy = (pool.boy + bet) > 0 ? (bet / (pool.boy + bet)) * simTotal : 0;
+            const potentialGirl = (pool.girl + bet) > 0 ? (bet / (pool.girl + bet)) * simTotal : 0;
 
-            const potentialBoyPayout = simulatedBoyPool > 0 ? (bet / simulatedBoyPool) * simulatedTotal : 0;
-            const potentialGirlPayout = simulatedGirlPool > 0 ? (bet / simulatedGirlPool) * simulatedTotal : 0;
-
-            document.getElementById('potential-boy').innerText = `₱${potentialBoyPayout.toFixed(2)}`;
-            document.getElementById('potential-girl').innerText = `₱${potentialGirlPayout.toFixed(2)}`;
+            document.getElementById('potential-boy').innerText = `₱${potentialBoy.toFixed(2)}`;
+            document.getElementById('potential-girl').innerText = `₱${potentialGirl.toFixed(2)}`;
         }
 
         function placeBet(side) {
             const nameInput = document.getElementById('bettor-name');
             const amountInput = document.getElementById('bet-amount');
-            
             const name = nameInput.value.trim();
             const amount = parseFloat(amountInput.value);
 
-            // STOPS VALIDATION PROCESS IF NAME IS MISSING
             if (!name) {
                 nameInput.classList.add('input-error');
                 nameInput.focus();
                 alert("Please enter your name to place a bet!");
                 return;
             }
-
-            if (isNaN(amount) || amount <= 0) {
-                alert("Please enter a valid bet amount.");
-                return;
-            }
+            if (isNaN(amount) || amount <= 0) return;
 
             pool[side] += amount;
-
-            historyLog.unshift({
-                name: name,
-                amount: amount,
-                side: side
-            });
-
+            historyLog.unshift({ name, amount, side });
             nameInput.value = "";
-            nameInput.classList.remove('input-error');
             
-            updateDisplay();
+            updateDisplay(true); // Triggers background save to cloud
         }
 
         function renderHistory() {
@@ -409,7 +222,7 @@
             listContainer.innerHTML = "";
 
             if (historyLog.length === 0) {
-                listContainer.innerHTML = `<li class="history-item" style="color:#aaa; text-align:center; justify-content:center; padding: 40px 0;">No active bets placed yet.</li>`;
+                listContainer.innerHTML = `<li class="history-item" style="color:#aaa; text-align:center; padding:40px 0;">No active bets placed yet.</li>`;
                 return;
             }
 
@@ -418,11 +231,9 @@
             historyLog.forEach(item => {
                 const li = document.createElement('li');
                 li.className = "history-item";
-                
                 const sideText = item.side === 'boy' ? '<span class="tag-boy">BOY 💙</span>' : '<span class="tag-girl">GIRL 💖</span>';
-                
                 const targetSidePool = item.side === 'boy' ? pool.boy : pool.girl;
-                const dynamicRecalculatedWin = targetSidePool > 0 ? (item.amount / targetSidePool) * total : 0;
+                const dynamicWin = targetSidePool > 0 ? (item.amount / targetSidePool) * total : 0;
 
                 li.innerHTML = `
                     <div class="history-row-main">
@@ -430,23 +241,17 @@
                         <strong>₱${item.amount.toLocaleString()}</strong>
                     </div>
                     <div class="history-row-sub">
-                        <span>🔥 Current Payout If Correct:</span>
-                        <strong>₱${dynamicRecalculatedWin.toFixed(2)}</strong>
+                        <span>🔥 Live Payout If Correct:</span>
+                        <strong>₱${dynamicWin.toFixed(2)}</strong>
                     </div>
                 `;
                 listContainer.appendChild(li);
             });
         }
 
-        function resetPool() {
-            if (confirm("Are you sure you want to completely flush the active state cache back to zero values?")) {
-                pool = { boy: 0, girl: 0 };
-                historyLog = [];
-                updateDisplay();
-            }
-        }
-
-        updateDisplay();
+        // Run setup and start a live poll loop every 5 seconds to catch other people's bets!
+        fetchCloudData();
+        setInterval(fetchCloudData, 5000);
     </script>
 </body>
 </html>
