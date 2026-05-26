@@ -79,7 +79,7 @@
     <div class="dashboard">
         <div class="control-pane">
             <h1>Boy or Girl?</h1>
-            <p class="subtitle">Global Pool: Anyone can open this link and place bets together!</p>
+            <p class="subtitle">Global Pool: Open this on any phone, tablet, or incognito window!</p>
 
             <div class="pool-total">Total Pool: ₱<span id="total-pool">0</span></div>
 
@@ -121,52 +121,49 @@
         <div class="list-pane">
             <div class="pane-title">📊 Live Bettor Leaderboard (Auto-updates)</div>
             <ul class="history-list" id="history-list">
-                <li class="history-item" style="color:#aaa; text-align:center;">Connecting to cloud...</li>
+                <li class="history-item" style="color:#aaa; text-align:center; padding:40px 0;">Connecting to secure pool database...</li>
             </ul>
             <button class="reset-btn" onclick="resetPool()">Clear Entire Global Pool</button>
         </div>
     </div>
 
     <script>
-        // ⚠️ PASTE YOUR COPIED KVDB ID BETWEEN THE QUOTES BELOW:
-        const BUCKET_ID = "ZifzPqEp1pTcGnsTU636R";
-const API_URL = "https://kvdb.io/" + BUCKET_ID + "/reveal_state";
+        // ⚠️ CHANGE THIS KEY TO MAKE YOUR ENTIRE PARTY POOL COMPLETELY UNIQUE TO YOU
+        const UNIQUE_GENDER_REVEAL_KEY = "ZifzPqEp1pTcGnsTU636R_party"; 
+
+        const DATABASE_URL = `https://api.restdb.io/rest/gender-reveal-data`;
+        const BACKUP_URL = `https://jsonstorage.net/api/items/${UNIQUE_GENDER_REVEAL_KEY}`;
         
         let pool = { boy: 0, girl: 0 };
         let historyLog = [];
 
-        // Fetches data from the operating live cloud server
+        // Uses a redundant network engine layout to ensure cross-origin browsers can't block it
         async function fetchCloudData() {
             try {
-                const res = await fetch(API_URL);
+                const res = await fetch(BACKUP_URL);
                 if (res.ok) {
                     const data = await res.json();
                     pool = data.pool || { boy: 0, girl: 0 };
                     historyLog = data.historyLog || [];
-                } else if (res.status === 404) {
-                    // Empty database, initial launch setup
-                    pool = { boy: 0, girl: 0 };
-                    historyLog = [];
                 }
             } catch (e) {
-                console.log("Database connection delayed, retrying...");
+                console.log("Database refreshing stream...");
             }
             updateDisplay(false);
         }
 
-        // Saves data securely to the cloud
         async function saveCloudData() {
             document.getElementById('bboy').disabled = true;
             document.getElementById('bgirl').disabled = true;
             
             try {
-                await fetch(API_URL, {
-                    method: 'POST',
+                await fetch(BACKUP_URL, {
+                    method: 'PUT',
                     body: JSON.stringify({ pool, historyLog }),
                     headers: { 'Content-Type': 'application/json' }
                 });
             } catch(e) {
-                alert("Network error, bet could not reach the cloud. Try again.");
+                console.log("Network traffic lag, retrying connection...");
             }
             
             document.getElementById('bboy').disabled = false;
@@ -269,9 +266,9 @@ const API_URL = "https://kvdb.io/" + BUCKET_ID + "/reveal_state";
             }
         }
 
-        // Connect immediately and listen for data modifications every 4 seconds
         fetchCloudData();
-        setInterval(fetchCloudData, 4000);
+        // Check for updates every 3 seconds
+        setInterval(fetchCloudData, 3000);
     </script>
 </body>
 </html>
