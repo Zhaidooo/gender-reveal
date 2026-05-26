@@ -122,25 +122,6 @@
             border-radius: 8px;
             font-size: 1rem;
             box-sizing: border-box;
-            transition: all 0.2s ease;
-        }
-
-        input[type="text"]:focus {
-            border-color: #6c757d;
-            outline: none;
-        }
-
-        /* Error/Shake Animation for missing name */
-        .input-error {
-            border-color: #e63946 !important;
-            background-color: #ffeef2;
-            animation: shake 0.3s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-6px); }
-            40%, 80% { transform: translateX(6px); }
         }
 
         input[type="number"] { text-align: center; }
@@ -266,7 +247,7 @@
         <!-- LEFT SIDE: ACTIONS & CONFIG -->
         <div class="control-pane">
             <h1>Boy or Girl?</h1>
-            <p class="subtitle">Enter your name and bet to adjust the pool live!</p>
+            <p class="subtitle">Enter your bet below to instantly adjust the pool!</p>
 
             <div class="pool-total">
                 Total Pool: ₱<span id="total-pool">0</span>
@@ -285,10 +266,9 @@
                 </div>
             </div>
 
-            <!-- MANDATORY REQUIREMENT FIELD -->
             <div class="form-group">
-                <label for="bettor-name">Bettor's Name: <span style="color: #e63946;">*Required</span></label>
-                <input type="text" id="bettor-name" placeholder="e.g., Tita Karen" autocomplete="off" oninput="this.classList.remove('input-error')">
+                <label for="bettor-name">Bettor's Name:</label>
+                <input type="text" id="bettor-name" placeholder="e.g., Tita Karen" autocomplete="off">
             </div>
 
             <div class="form-group">
@@ -331,6 +311,7 @@
     </div>
 
     <script>
+        // Data fetch lifecycle
         let pool = JSON.parse(localStorage.getItem('grDashboardTotals')) || { boy: 0, girl: 0 };
         let historyLog = JSON.parse(localStorage.getItem('grDashboardHistory')) || [];
 
@@ -341,12 +322,14 @@
             document.getElementById('girl-pool').innerText = `₱${pool.girl.toLocaleString()}`;
             document.getElementById('total-pool').innerText = total.toLocaleString();
 
+            // Multipliers
             const boyMultiplier = pool.boy > 0 ? (total / pool.boy) : 1.00;
             const girlMultiplier = pool.girl > 0 ? (total / pool.girl) : 1.00;
 
             document.getElementById('boy-odds').innerText = `Multiplier: x${boyMultiplier.toFixed(2)}`;
             document.getElementById('girl-odds').innerText = `Multiplier: x${girlMultiplier.toFixed(2)}`;
 
+            // Direct Save mutations
             localStorage.setItem('grDashboardTotals', JSON.stringify(pool));
             localStorage.setItem('grDashboardHistory', JSON.stringify(historyLog));
 
@@ -374,32 +357,26 @@
             const nameInput = document.getElementById('bettor-name');
             const amountInput = document.getElementById('bet-amount');
             
-            const name = nameInput.value.trim();
+            const name = nameInput.value.trim() || "Anonymous";
             const amount = parseFloat(amountInput.value);
 
-            // STOPS VALIDATION PROCESS IF NAME IS MISSING
-            if (!name) {
-                nameInput.classList.add('input-error');
-                nameInput.focus();
-                alert("Please enter your name to place a bet!");
-                return;
-            }
-
             if (isNaN(amount) || amount <= 0) {
-                alert("Please enter a valid bet amount.");
+                alert("Please drop a valid value into the bet amount area.");
                 return;
             }
 
+            // Commit to pool total state
             pool[side] += amount;
 
+            // Prepend transaction array data block
             historyLog.unshift({
                 name: name,
                 amount: amount,
                 side: side
             });
 
+            // Wipe identity block clean
             nameInput.value = "";
-            nameInput.classList.remove('input-error');
             
             updateDisplay();
         }
@@ -415,12 +392,14 @@
 
             const total = pool.boy + pool.girl;
 
+            // Loop through data array and recalculate EVERYONE'S potential return live based on latest numbers
             historyLog.forEach(item => {
                 const li = document.createElement('li');
                 li.className = "history-item";
                 
                 const sideText = item.side === 'boy' ? '<span class="tag-boy">BOY 💙</span>' : '<span class="tag-girl">GIRL 💖</span>';
                 
+                // Recalculation math engine injection
                 const targetSidePool = item.side === 'boy' ? pool.boy : pool.girl;
                 const dynamicRecalculatedWin = targetSidePool > 0 ? (item.amount / targetSidePool) * total : 0;
 
@@ -446,6 +425,7 @@
             }
         }
 
+        // Initialize board
         updateDisplay();
     </script>
 </body>
